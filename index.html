@@ -594,6 +594,10 @@
                     <input type="email" id="registerEmail" class="form-input" placeholder="seu@email.com">
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Telefone</label>
+                    <input type="tel" id="registerPhone" class="form-input" placeholder="(XX) 9XXXX-XXXX">
+                </div>
+                <div class="form-group">
                     <label class="form-label">Senha (mínimo 6 dígitos)</label>
                     <input type="password" id="registerPassword" class="form-input" placeholder="Sua senha">
                 </div>
@@ -687,7 +691,7 @@
                                 <div class="qr-code-container">
                                     <img id="qrCodeImg" src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/4bc4b9dd-79f6-4ef5-a384-39bdd5eb9ce4" alt="QR Code Pix">
                                 </div>
-                                <div class="pix-key">Chave: wendel_hai@hotmail.com</div>
+                                <div class="pix-key">Chave: 33991996092</div>
                                 <div class="payment-instruction">
                                     <strong>Aguarde confirmação de pagamento.</strong><br>
                                     Caso queira, mande o comprovante para 33 9 9199-6092.
@@ -822,9 +826,10 @@
             const name = document.getElementById('registerName').value.trim();
             const surname = document.getElementById('registerSurname').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
             const password = document.getElementById('registerPassword').value.trim();
 
-            if (!name || !surname || !email || !password) {
+            if (!name || !surname || !email || !phone || !password) {
                 showError('registerError', 'Preencha todos os campos');
                 return;
             }
@@ -841,6 +846,7 @@
                         name: name,
                         surname: surname,
                         email: email,
+                        phone: phone,
                         status: 'not_paid',
                         amount: 0,
                         quotas: 0,
@@ -850,6 +856,12 @@
                     db.ref('users/' + uid).set(userData)
                         .then(() => {
                             currentUser = userCredential.user;
+                            document.getElementById('registerName').value = '';
+                            document.getElementById('registerSurname').value = '';
+                            document.getElementById('registerEmail').value = '';
+                            document.getElementById('registerPhone').value = '';
+                            document.getElementById('registerPassword').value = '';
+                            document.getElementById('registerError').textContent = '';
                             showDashboard();
                         })
                         .catch(error => {
