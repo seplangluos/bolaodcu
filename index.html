@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega da Virada 2025 - Bolão</title>
+    <style>
+        :root {
+            --color-primary: #208090;
+            --color-primary-hover: #1a6575;
+            --color-primary-active: #145360;
+            --color-secondary: rgba(32, 128, 144, 0.12);
+            --color-secondary-hover: rgba(32, 128, 144, 0.2);
+            --color-background: #fcfcf9;
+            --color-surface: #ffffff;
+            --color-text: #134252;
+            --color-text-secondary: #626c71;
+            --color-border: rgba(94, 82, 64, 0.2);
+            --color-error: #c0152f;
+            --color-success: #208090;
+            --color-warning: #a84b2f;
+            --focus-ring: 0 0 0 3px rgba(32, 128, 144, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.hidden {
+            display: none;
+        }
+
+        .sidebar-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--color-primary);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar-menu button {
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 150ms;
+        }
+
+        .sidebar-menu button:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .sidebar-menu button.active {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .sidebar-logout {
+            margin-top: auto;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .sidebar-logout button {
+            width: 100%;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area {
+            padding: 30px;
+            flex: 1;
+        }
+
+        /* Auth screens */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--color-background);
+        }
+
+        .auth-box {
+            background: var(--color-surface);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--color-primary);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            background: var(--color-surface);
+            color: var(--color-text);
+            transition: border-color 150ms;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--focus-ring);
+        }
+
+        .form-input.error {
+            border-color: var(--color-error);
+        }
+
+        .error-message {
+            color: var(--color-error);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .success-message {
+            color: var(--color-success);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 150ms;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 15px;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn-primary:active {
+            background: var(--color-primary-active);
+        }
+
+        .btn-secondary {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-secondary);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .toggle-form button {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: var(--color-secondary);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .user-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .payment-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+            align-items: start;
+        }
+
+        .payment-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-code-container {
+            border: 2px solid var(--color-border);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .qr-code-container img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .pix-key {
+            font-size: 12px;
+            text-align: center;
+            color: var(--color-text-secondary);
+            word-break: break-all;
+            background: var(--color-secondary);
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .payment-instruction {
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
+
+        .payment-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quota-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .quota-table th,
+        .quota-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 14px;
+        }
+
+        .quota-table th {
+            background: var(--color-secondary);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .quota-table tr:hover {
+            background: var(--color-secondary);
+        }
+
+        /* Participants list */
+        .participants-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .participants-table th,
+        .participants-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 14px;
+        }
+
+        .participants-table th {
+            background: var(--color-secondary);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .participants-table tbody tr:hover {
+            background: var(--color-secondary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-paid {
+            background: rgba(32, 128, 144, 0.15);
+            color: var(--color-success);
+        }
+
+        .status-unpaid {
+            background: rgba(192, 21, 47, 0.15);
+            color: var(--color-error);
+        }
+
+        .table-total-row {
+            background: var(--color-secondary);
+            font-weight: 600;
+        }
+
+        .table-total-row td {
+            border-top: 2px solid var(--color-border);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .table-footer {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Admin panel */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 14px;
+        }
+
+        .admin-table th {
+            background: var(--color-secondary);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .admin-table tbody tr:hover {
+            background: var(--color-secondary);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 13px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background: var(--color-surface);
+            color: var(--color-text);
+        }
+
+        .admin-select {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 13px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background: var(--color-surface);
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        .admin-input:focus,
+        .admin-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--focus-ring);
+        }
+
+        .btn-save {
+            padding: 6px 12px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .hidden-section.visible {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .content-area {
+                padding: 16px;
+            }
+
+            .payment-section {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="authScreen" class="auth-container">
+        <div class="auth-box">
+            <div class="auth-title">Mega da Virada</div>
+            
+            <div id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Sua senha">
+                </div>
+                <div id="loginError" class="error-message"></div>
+                <button class="btn btn-primary" onclick="handleLogin()">Entrar</button>
+                <div class="toggle-form">
+                    <button onclick="toggleForm()">Não tem cadastro? Criar conta</button>
+                </div>
+            </div>
+
+            <div id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Nome</label>
+                    <input type="text" id="registerName" class="form-input" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sobrenome</label>
+                    <input type="text" id="registerSurname" class="form-input" placeholder="Seu sobrenome">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Senha (mínimo 6 dígitos)</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="Sua senha">
+                </div>
+                <div id="registerError" class="error-message"></div>
+                <button class="btn btn-primary" onclick="handleRegister()">Cadastrar</button>
+                <div class="toggle-form">
+                    <button onclick="toggleForm()">Já tem conta? Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboardScreen" class="dashboard">
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-header">Menu</div>
+                <ul class="sidebar-menu">
+                    <li><button class="menu-btn active" onclick="showSection('dashboard')">Dashboard</button></li>
+                    <li><button class="menu-btn" onclick="showSection('participants')">Lista de Participantes</button></li>
+                    <li><button class="menu-btn" onclick="showSection('info')">Informações</button></li>
+                    <li id="adminMenuLi" class="hidden-section">
+                        <button class="menu-btn" onclick="showSection('admin')">Configurações (Admin)</button>
+                    </li>
+                </ul>
+                <div class="sidebar-logout">
+                    <button class="btn btn-outline btn-sm" onclick="handleLogout()">Sair</button>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboardSection" class="content-area hidden-section visible">
+                    <h1 style="margin-top: 0; color: var(--color-primary);">Dashboard</h1>
+
+                    <!-- User Info Card -->
+                    <div class="card">
+                        <div class="card-title">Suas Informações</div>
+                        <div class="user-info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Nome</div>
+                                <div class="info-value" id="userNameDisplay">-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status de Pagamento</div>
+                                <div id="userStatusDisplay" style="display: inline-block; margin-top: 4px;"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Valor Pago</div>
+                                <div class="info-value" id="userAmountDisplay">-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Nº de Cotas</div>
+                                <div class="info-value" id="userQuotasDisplay">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="card">
+                        <div class="card-title">Estatísticas do Bolão</div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-label">Valor Arrecadado</div>
+                                <div class="stat-value" id="totalRaisedDisplay">R$ 0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Cadastros</div>
+                                <div class="stat-value" id="totalParticipantsDisplay">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Cotas Totais</div>
+                                <div class="stat-value" id="totalQuotasDisplay">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Pagos</div>
+                                <div class="stat-value" id="paidCountDisplay">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Sem Pagar</div>
+                                <div class="stat-value" id="unpaidCountDisplay">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Section -->
+                    <div class="card">
+                        <div class="card-title">Informações de Pagamento</div>
+                        <div class="payment-section">
+                            <div class="payment-left">
+                                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--color-text);">Valor da Cota: R$ 21,00</div>
+                                <div class="qr-code-container">
+                                    <img id="qrCodeImg" src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/4bc4b9dd-79f6-4ef5-a384-39bdd5eb9ce4" alt="QR Code Pix">
+                                </div>
+                                <div class="pix-key">Chave: 33991996092</div>
+                                <div class="payment-instruction">
+                                    <strong>Aguarde confirmação de pagamento.</strong><br>
+                                    Caso queira, mande o comprovante para 33 9 9199-6092.
+                                </div>
+                            </div>
+                            <div class="payment-right">
+                                <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--color-text);">Tabela de Cotas</div>
+                                <table class="quota-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cotas</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="quotaTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Participants Section -->
+                <div id="participantsSection" class="content-area hidden-section">
+                    <h1 style="margin-top: 0; color: var(--color-primary);">Lista de Participantes</h1>
+                    <div class="card">
+                        <table class="participants-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome e Sobrenome</th>
+                                    <th>Nº de Cotas</th>
+                                    <th>Pagamento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participantsTableBody">
+                            </tbody>
+                        </table>
+                        <div class="table-footer">
+                            O total representa Valor Arrecadado de Cotas / Valor potencial (em reais).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div id="infoSection" class="content-area hidden-section">
+                    <h1 style="margin-top: 0; color: var(--color-primary);">Informações da Mega da Virada</h1>
+                    <div class="card">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/009fc5b0-94d4-43b5-8dc2-0cea0148397f" alt="Tabela de Valores" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
+
+                <!-- Admin Section -->
+                <div id="adminSection" class="content-area hidden-section">
+                    <h1 style="margin-top: 0; color: var(--color-primary);">Configurações (Admin)</h1>
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <span style="color: var(--color-text-secondary); font-size: 14px;">Total de cotas: <strong id="adminTotalQuotas">0</strong>/100</span>
+                            <button class="btn btn-secondary btn-sm" onclick="exportAdminData()">Exportar Dados</button>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome e Sobrenome</th>
+                                    <th>Nº de Cotas</th>
+                                    <th>Valor Pago</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWNklc0-Cy3is87xhZaGPzkx1Aj5451PQ",
+            authDomain: "mega-da-virada-25.firebaseapp.com",
+            projectId: "mega-da-virada-25",
+            storageBucket: "mega-da-virada-25.firebasestorage.app",
+            messagingSenderId: "466426762338",
+            appId: "1:466426762338:web:5ea011d492e2faa917ed3b",
+            measurementId: "G-DZFC4829GZ"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        const ADMIN_EMAIL = "wendel_hai@hotmail.com";
+        const QUOTA_PRICE = 21;
+        const MAX_QUOTAS = 100;
+        let currentUser = null;
+        let allUsers = {};
+
+        // Auth handlers
+        function toggleForm() {
+            document.getElementById('loginForm').style.display = 
+                document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = 
+                document.getElementById('registerForm').style.display === 'none' ? 'block' : 'none';
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!email || !password) {
+                showError('loginError', 'Preencha todos os campos');
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    currentUser = userCredential.user;
+                    showDashboard();
+                })
+                .catch(error => {
+                    showError('loginError', 'Email ou senha inválidos');
+                    console.error(error);
+                });
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('registerName').value.trim();
+            const surname = document.getElementById('registerSurname').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+
+            if (!name || !surname || !email || !password) {
+                showError('registerError', 'Preencha todos os campos');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('registerError', 'Senha deve ter no mínimo 6 dígitos');
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    const uid = userCredential.user.uid;
+                    const userData = {
+                        name: name,
+                        surname: surname,
+                        email: email,
+                        status: 'not_paid',
+                        amount: 0,
+                        quotas: 0,
+                        createdAt: new Date().toISOString()
+                    };
+
+                    db.ref('users/' + uid).set(userData)
+                        .then(() => {
+                            currentUser = userCredential.user;
+                            showDashboard();
+                        })
+                        .catch(error => {
+                            showError('registerError', 'Erro ao salvar dados: ' + error.message);
+                        });
+                })
+                .catch(error => {
+                    showError('registerError', error.message);
+                });
+        }
+
+        function handleLogout() {
+            auth.signOut().then(() => {
+                currentUser = null;
+                document.getElementById('authScreen').style.display = 'flex';
+                document.getElementById('dashboardScreen').classList.remove('active');
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginError').textContent = '';
+            }).catch(error => console.error(error));
+        }
+
+        // Dashboard handlers
+        function showDashboard() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('dashboardScreen').classList.add('active');
+            
+            if (currentUser.email === ADMIN_EMAIL) {
+                document.getElementById('adminMenuLi').classList.add('visible');
+            }
+
+            loadAllUsers();
+            loadUserData();
+            populateQuotaTable();
+        }
+
+        function loadAllUsers() {
+            db.ref('users').on('value', snapshot => {
+                allUsers = snapshot.val() || {};
+                updateAllDisplays();
+            });
+        }
+
+        function loadUserData() {
+            if (!currentUser) return;
+
+            db.ref('users/' + currentUser.uid).on('value', snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    document.getElementById('userNameDisplay').textContent = 
+                        data.name + ' ' + data.surname;
+                    
+                    const statusBadge = document.getElementById('userStatusDisplay');
+                    if (data.status === 'paid') {
+                        statusBadge.innerHTML = '<span class="status-badge status-paid">Pago</span>';
+                    } else {
+                        statusBadge.innerHTML = '<span class="status-badge status-unpaid">Não Pago</span>';
+                    }
+
+                    document.getElementById('userAmountDisplay').textContent = 
+                        'R$ ' + (data.amount || 0).toFixed(2);
+                    document.getElementById('userQuotasDisplay').textContent = 
+                        data.quotas || 0;
+                }
+            });
+        }
+
+        function populateQuotaTable() {
+            const tbody = document.getElementById('quotaTableBody');
+            tbody.innerHTML = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${i}</td>
+                    <td>R$ ${(i * QUOTA_PRICE).toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function updateAllDisplays() {
+            updateStats();
+            updateParticipantsTable();
+            if (currentUser.email === ADMIN_EMAIL) {
+                updateAdminTable();
+            }
+        }
+
+        function updateStats() {
+            let totalRaised = 0;
+            let totalParticipants = 0;
+            let totalQuotas = 0;
+            let paidCount = 0;
+            let unpaidCount = 0;
+
+            Object.values(allUsers).forEach(user => {
+                totalParticipants++;
+                totalQuotas += (user.quotas || 0);
+                if (user.status === 'paid') {
+                    totalRaised += user.amount || 0;
+                    paidCount++;
+                } else {
+                    unpaidCount++;
+                }
+            });
+
+            // Add unpaid as 1 quota each
+            let potentialQuotas = totalQuotas + unpaidCount;
+            let potentialValue = potentialQuotas * QUOTA_PRICE;
+
+            document.getElementById('totalRaisedDisplay').textContent = 
+                'R$ ' + totalRaised.toFixed(2);
+            document.getElementById('totalParticipantsDisplay').textContent = 
+                totalParticipants;
+            document.getElementById('totalQuotasDisplay').textContent = 
+                potentialQuotas;
+            document.getElementById('paidCountDisplay').textContent = 
+                paidCount;
+            document.getElementById('unpaidCountDisplay').textContent = 
+                unpaidCount;
+        }
+
+        function updateParticipantsTable() {
+            const tbody = document.getElementById('participantsTableBody');
+            tbody.innerHTML = '';
+
+            const sortedUsers = Object.entries(allUsers).sort((a, b) => {
+                const nameA = (a[1].name + a[1].surname).toLowerCase();
+                const nameB = (b[1].name + b[1].surname).toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+
+            let totalPaidQuotas = 0;
+            let totalUnpaidQuotas = 0;
+
+            sortedUsers.forEach(([uid, user]) => {
+                const status = user.status === 'paid' ? 'paid' : 'unpaid';
+                const quotas = user.quotas || 1;
+
+                if (status === 'paid') {
+                    totalPaidQuotas += quotas;
+                } else {
+                    totalUnpaidQuotas += 1;
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.name} ${user.surname}</td>
+                    <td>${quotas}</td>
+                    <td>
+                        <span class="status-badge status-${status}">
+                            ${status === 'paid' ? 'Pago' : 'Falta Pagar'}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Total row
+            const totalValue = totalPaidQuotas * QUOTA_PRICE;
+            const potentialValue = (totalPaidQuotas + totalUnpaidQuotas) * QUOTA_PRICE;
+
+            const totalTr = document.createElement('tr');
+            totalTr.className = 'table-total-row';
+            totalTr.innerHTML = `
+                <td><strong>Total</strong></td>
+                <td><strong>${totalPaidQuotas + totalUnpaidQuotas}</strong></td>
+                <td><strong>R$ ${totalValue.toFixed(2)} / R$ ${potentialValue.toFixed(2)}</strong></td>
+            `;
+            tbody.appendChild(totalTr);
+        }
+
+        function updateAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '';
+
+            const sortedUsers = Object.entries(allUsers).sort((a, b) => {
+                const nameA = (a[1].name + a[1].surname).toLowerCase();
+                const nameB = (b[1].name + b[1].surname).toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+
+            let totalQuotas = 0;
+            sortedUsers.forEach(([uid, user]) => {
+                totalQuotas += (user.quotas || 0);
+            });
+
+            sortedUsers.forEach(([uid, user]) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.name} ${user.surname}</td>
+                    <td>
+                        <select class="admin-select" onchange="updateAdminRow('${uid}', this)">
+                            ${Array.from({length: 11}, (_, i) => `<option value="${i}" ${(user.quotas || 0) === i ? 'selected' : ''}>${i}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="admin-input" placeholder="R$ 0,00" value="${user.amount || 0}" onchange="updateAdminRow('${uid}', this)">
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-save" onclick="saveAdminChanges('${uid}')">Salvar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('adminTotalQuotas').textContent = totalQuotas;
+        }
+
+        function updateAdminRow(uid, element) {
+            // This will be called on change to preview, actual save happens with button
+        }
+
+        function saveAdminChanges(uid) {
+            const row = event.target.closest('tr');
+            const quotaSelect = row.querySelector('.admin-select');
+            const amountInput = row.querySelector('.admin-input');
+
+            const quotas = parseInt(quotaSelect.value) || 0;
+            const amount = parseFloat(amountInput.value) || 0;
+
+            // Calculate expected amount for quotas
+            const expectedAmount = quotas * QUOTA_PRICE;
+
+            // Check if amount matches quotas (or is 0)
+            let status = 'not_paid';
+            if (amount > 0 && amount === expectedAmount) {
+                status = 'paid';
+            } else if (amount > 0 && amount < expectedAmount) {
+                status = 'not_paid';
+            }
+
+            // Check max quotas
+            let currentTotalQuotas = 0;
+            Object.entries(allUsers).forEach(([id, user]) => {
+                if (id !== uid) {
+                    currentTotalQuotas += (user.quotas || 0);
+                }
+            });
+
+            if (currentTotalQuotas + quotas > MAX_QUOTAS) {
+                alert(`Não é possível adicionar ${quotas} cotas. Total não pode ultrapassar ${MAX_QUOTAS}`);
+                return;
+            }
+
+            // Update user data
+            db.ref('users/' + uid).update({
+                quotas: quotas,
+                amount: amount,
+                status: status
+            }).then(() => {
+                console.log('Dados atualizados com sucesso');
+            }).catch(error => {
+                alert('Erro ao salvar: ' + error.message);
+            });
+        }
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.content-area').forEach(el => {
+                el.classList.remove('visible');
+            });
+
+            document.querySelectorAll('.menu-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            if (sectionName === 'dashboard') {
+                document.getElementById('dashboardSection').classList.add('visible');
+            } else if (sectionName === 'participants') {
+                document.getElementById('participantsSection').classList.add('visible');
+            } else if (sectionName === 'info') {
+                document.getElementById('infoSection').classList.add('visible');
+            } else if (sectionName === 'admin') {
+                document.getElementById('adminSection').classList.add('visible');
+            }
+
+            event.target.classList.add('active');
+        }
+
+        function exportAdminData() {
+            let csv = 'Nome,Sobrenome,Email,Cotas,Valor Pago,Status\n';
+            Object.values(allUsers).forEach(user => {
+                csv += `"${user.name}","${user.surname}","${user.email}",${user.quotas || 0},${(user.amount || 0).toFixed(2)},${user.status === 'paid' ? 'Pago' : 'Não Pago'}\n`;
+            });
+
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+            element.setAttribute('download', 'bolao_dados.csv');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+            setTimeout(() => {
+                errorEl.textContent = '';
+                errorEl.style.display = 'none';
+            }, 5000);
+        }
+
+        // Listen for auth state changes
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                showDashboard();
+            } else {
+                document.getElementById('authScreen').style.display = 'flex';
+                document.getElementById('dashboardScreen').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
